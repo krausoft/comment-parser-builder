@@ -1,0 +1,32 @@
+{
+  "name": "comment-regexp-builder",
+  "version": "0.0.1",
+  "description": "Create custom comments RegExps. Leading and trailing space tolerant. With a content match.",
+  "main": "index.js",
+  "directories": {
+    "example": "examples",
+    "test": "test"
+  },
+  "scripts": {
+    "test": "jest"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/krausoft/comment-regexp-builder.git"
+  },
+  "keywords": [
+    "comment",
+    "regexp",
+    "regex",
+    "line"
+  ],
+  "author": "Tomas Kraus",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/krausoft/comment-regexp-builder/issues"
+  },
+  "homepage": "https://github.com/krausoft/comment-regexp-builder#readme",
+  "devDependencies": {
+    "jest": "^26.6.3"
+  }
+}
