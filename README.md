@@ -2,7 +2,7 @@
 
 RegExp wrapper for comment-like lines
 
-- custom tags (not only the '/\*', '\*/', '//' ...)
+- custom tags, from strings ('/\*', '\*/', '//', ...)
 - leading and trailing space tolerant
 - opening, closing and section tags (ini files section, for example)
 - extract other text from the tag line
@@ -15,7 +15,6 @@ line comment example
 const crb = require("comment-regexp-builder");
 
 const src = `
-
  //  my 2nd code
 
   // adds two numbers together
@@ -23,19 +22,15 @@ const src = `
   const plus = (a, b) => {
     return a + b
   }
-
-
  module.exports = {
     // TODO: remove
     plus,
 }
-
 `;
 
 const lineCommentTag = crb.createStartTag("//");
 const lineComments = src.split("\n").filter(lineCommentTag.test);
 
-//print all line comments
 console.log(lineComments);
 //=> [
 //   ' //  my 2nd code',
@@ -44,7 +39,6 @@ console.log(lineComments);
 //   '    // TODO: remove'
 // ]
 
-//print only the content of line comments
 console.log(lineComments.map(lineCommentTag.innerText));
 //=> [
 //   '  my 2nd code',
