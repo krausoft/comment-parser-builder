@@ -9,7 +9,17 @@ RegExp wrapper for comment-like lines
 
 ## Examples
 
-line comment example
+```js
+const crb = require("comment-regexp-builder");
+
+const lineCommentTag = crb.createStartTag("//");
+console.log(lineCommentTag.test("  // some comment "));
+//=>true
+console.log(lineCommentTag.innerText("  // some comment "));
+//=>" some comment "
+```
+
+more line comment example
 
 ```js
 const crb = require("comment-regexp-builder");
