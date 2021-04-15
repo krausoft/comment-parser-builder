@@ -18,7 +18,12 @@
     "comment",
     "regexp",
     "regex",
-    "line"
+    "line",
+    "test",
+    "match",
+    "tag",
+    "block",
+    "ini"
   ],
   "author": "Tomas Kraus",
   "license": "MIT",
