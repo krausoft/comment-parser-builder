@@ -387,3 +387,31 @@ describe("SectionTag innerText method", () => {
 });
 
 //--------------------------------------------------------------------------------------------------------------
+
+describe("MatchAllTag", () => {
+  test("MatchAllTag recognizes empty string", () => {
+    const tg = crb.matchAllTag;
+    expect(tg.test("")).toBe(true);
+  });
+
+  test("MatchAllTag recognizes whiteChar string", () => {
+    const tg = crb.matchAllTag;
+    expect(tg.test(" \t")).toBe(true);
+  });
+
+  test("MatchAllTag recognizes some random string", () => {
+    const tg = crb.matchAllTag;
+    expect(tg.test("a")).toBe(true);
+    expect(tg.test(" -< this is a description  >-")).toBe(true);
+  });
+
+  test("MatchAllTag innerText is the same as the original text", () => {
+    const tg = crb.matchAllTag;
+    expect(tg.innerText("")).toEqual("");
+    expect(tg.innerText("a")).toEqual("a");
+    expect(tg.innerText("\t ")).toEqual("\t ");
+    expect(tg.innerText(" -< this is a description  >-")).toEqual(
+      " -< this is a description  >-"
+    );
+  });
+});
