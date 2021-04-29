@@ -1,6 +1,6 @@
 {
   "name": "@krausoft/comment-regexp-builder",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "Create custom comments RegExps. Leading and trailing space tolerant. With a content match.",
   "main": "index.js",
   "directories": {
