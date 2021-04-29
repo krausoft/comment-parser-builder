@@ -111,8 +111,8 @@ Each of tags has these methods:
 
 There is also useful constant tag object: `matchAllTag`, which meets the following:
 
-- matchAllTag.test(s) === true //for all strings s
-- matchAllTag.innerText(s) === s //for all strings s
+- matchAllTag.test(s) === true //for all one-line strings s
+- matchAllTag.innerText(s) === s //for all one-line strings s
 
 ## Limitations
 

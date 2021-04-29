@@ -399,13 +399,13 @@ describe("MatchAllTag", () => {
     expect(tg.test(" \t")).toBe(true);
   });
 
-  test("MatchAllTag recognizes some random string", () => {
+  test("MatchAllTag recognizes some random one-line string", () => {
     const tg = crb.matchAllTag;
     expect(tg.test("a")).toBe(true);
     expect(tg.test(" -< this is a description  >-")).toBe(true);
   });
 
-  test("MatchAllTag innerText is the same as the original text", () => {
+  test("MatchAllTag innerText is the same as the original one-line text", () => {
     const tg = crb.matchAllTag;
     expect(tg.innerText("")).toEqual("");
     expect(tg.innerText("a")).toEqual("a");
@@ -413,5 +413,9 @@ describe("MatchAllTag", () => {
     expect(tg.innerText(" -< this is a description  >-")).toEqual(
       " -< this is a description  >-"
     );
+
+    // expect(tg.innerText(` -< this is a de\nscription  >-`)).toEqual(
+    //   ` -< this is a de\nscription  >-`
+    // );
   });
 });
