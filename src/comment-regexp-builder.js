@@ -47,7 +47,8 @@ const tagWrapperObj = (tagStr, tagStrRegexp) => {
  * @returns start tag wrapper object
  */
 const createStartTag = (tagStr) =>
-  tagWrapperObj(tagStr, new RegExp("^\\s*" + escapeRegExp(tagStr) + "(.*)$"));
+  //tagWrapperObj(tagStr, new RegExp("^\\s*" + escapeRegExp(tagStr) + "(.*)$"));
+  createSectionTag(tagStr, "");
 
 /**
  * Creates an end tag from string
@@ -77,8 +78,11 @@ const createSectionTag = (leftPartStr, rightPartStr) =>
     )
   );
 
+const matchAllTag = tagWrapperObj("something", /^(.*)$/);
+
 module.exports = {
   createStartTag,
   createEndTag,
   createSectionTag,
+  matchAllTag,
 };

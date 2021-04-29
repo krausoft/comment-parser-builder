@@ -5,7 +5,7 @@ RegExp wrapper for comment-like lines
 - custom tags, from strings ('/\*', '\*/', '//', ...)
 - leading and trailing space tolerant
 - opening, closing and section tags (ini files section, for example)
-- extract other text from the tag line
+- extract text from the tag
 
 ## Examples
 
@@ -108,6 +108,11 @@ Each of tags has these methods:
 - regexp(): returns its internal RegExp object
 - test(line: string): a shorthand for its internal RegExp object test method
 - innerText(line: string): If tag is found at the line, returns the text that belongs to it
+
+There is also useful constant tag object: `matchAllTag`, which meets the following:
+
+- matchAllTag.test(s) === true //for all strings s
+- matchAllTag.innerText(s) === s //for all strings s
 
 ## Limitations
 
