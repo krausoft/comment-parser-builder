@@ -1,5 +1,57 @@
 const crb = require("../src/comment-regexp-builder.js");
 
+const example0 = () => {
+  const lineCommentTag = crb.createStartTag("//");
+  console.log(lineCommentTag.test("  // some comment "));
+  //=>true
+  console.log(lineCommentTag.innerText("  // some comment "));
+  //=>" some comment "
+
+  const startBlock = crb.createStartTag("/*");
+  const endBlock = crb.createEndTag("*/");
+
+  console.log(startBlock.test("  /* some comment */ "));
+  //=>true
+  console.log(startBlock.innerText("  /* some comment */  "));
+  //=>" some comment */"
+
+  console.log(endBlock.test("  /* some comment */ "));
+  //=>true
+  console.log(endBlock.innerText("  /* some comment */  "));
+  //=>"  /* some comment "
+};
+
+example0();
+
+const example01 = () => {
+  console.log("01----------------");
+
+  const startBlock = crb.createStartTag("/*");
+  const endBlock = crb.createEndTag("*/");
+
+  console.log(startBlock.test(" x /* some comment */  "));
+  //=>false
+  console.log(startBlock.innerText(" x /* some comment */  "));
+  //=>null
+  console.log(endBlock.test(" x /* some comment */  "));
+  //=>true
+  console.log(endBlock.innerText(" x /* some comment */  "));
+  //=>" x /* some comment "
+
+  console.log(startBlock.test("  /* some comment */ x "));
+  //=>true
+  console.log(startBlock.innerText("  /* some comment */ x "));
+  //=>" some comment */ x "
+  console.log(endBlock.test("  /* some comment */ x "));
+  //=>false
+  console.log(endBlock.innerText("  /* some comment */ x "));
+  //=>null
+};
+
+example01();
+
+//
+
 const example1 = () => {
   const configText = `
 ; ini file
@@ -41,7 +93,7 @@ name=John
   console.log(content);
 };
 
-example1();
+// example1();
 
 //
 

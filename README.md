@@ -111,7 +111,38 @@ Each of tags has these methods:
 
 ## Limitations
 
-Cannot detects blocks inside text:
+To recognize lines with tags, these criteria must be met:
+
+- Start-Tag must be the first non-white character at the line
+- End-Tag must be the first non-white character at the line
+- Section Tag pair can be surrounded only by white chars
+
+```js
+const crb = require("comment-regexp-builder");
+
+const startBlock = crb.createStartTag("/*");
+const endBlock = crb.createEndTag("*/");
+
+console.log(startBlock.test(" x /* some comment */  "));
+//=>false
+console.log(startBlock.innerText(" x /* some comment */  "));
+//=>null
+console.log(endBlock.test(" x /* some comment */  "));
+//=>true
+console.log(endBlock.innerText(" x /* some comment */  "));
+//=>" x /* some comment "
+
+console.log(startBlock.test("  /* some comment */ x "));
+//=>true
+console.log(startBlock.innerText("  /* some comment */ x "));
+//=>" some comment */ x "
+console.log(endBlock.test("  /* some comment */ x "));
+//=>false
+console.log(endBlock.innerText("  /* some comment */ x "));
+//=>null
+```
+
+Because of that, this library cannot detects blocks inside the text:
 
 ```js
 const a = 10; //cannot detect this comment
