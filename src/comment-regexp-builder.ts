@@ -7,15 +7,21 @@
  */
 
 // from: https://stackoverflow.com/questions/4371565/create-regexps-on-the-fly-using-string-variables
-const escapeRegExp = (s) => s.replace(/[-/\\^$*+?.()|[\]{}]/g, "\\$&");
+const escapeRegExp = (s: string) => s.replace(/[-/\\^$*+?.()|[\]{}]/g, '\\$&');
 
-const tagData = (regex, str) => {
-  const matches = regex.exec(str);
+const tagData = (regex: RegExp, str: string | null): string | null => {
+  const matches = str === null ? null : regex.exec(str);
   return matches === null ? null : matches[1];
 };
 
-const tagWrapperObj = (tagStr, tagStrRegexp) => {
-  const regx = tagStr === "" ? new RegExp("^\\s*$") : tagStrRegexp;
+export type TTagWrapper = {
+  regexp: () => RegExp;
+  test: (s: string) => boolean;
+  innerText: (line: string | null) => string | null;
+};
+
+const tagWrapperObj = (tagStr: string, tagStrRegexp: RegExp): TTagWrapper => {
+  const regx = tagStr === '' ? new RegExp('^\\s*$') : tagStrRegexp;
   return {
     /**
      *
@@ -29,14 +35,14 @@ const tagWrapperObj = (tagStr, tagStrRegexp) => {
      * @param {string} str
      * @returns true if tag is present at the string. False otherwise.
      */
-    test: (str) => regx.test(str),
+    test: str => regx.test(str),
     /**
      *
      *
      * @param {string} line
      * @returns If tag is found at the line, returns the text that belongs to it. Otherwise returns null.
      */
-    innerText: (line) => tagData(regx, line),
+    innerText: line => tagData(regx, line),
   };
 };
 
@@ -46,9 +52,9 @@ const tagWrapperObj = (tagStr, tagStrRegexp) => {
  * @param {string} tagStr tag string
  * @returns start tag wrapper object
  */
-const createStartTag = (tagStr) =>
+export const createStartTag = (tagStr: string) =>
   //tagWrapperObj(tagStr, new RegExp("^\\s*" + escapeRegExp(tagStr) + "(.*)$"));
-  createSectionTag(tagStr, "");
+  createSectionTag(tagStr, '');
 
 /**
  * Creates an end tag from string
@@ -56,8 +62,8 @@ const createStartTag = (tagStr) =>
  * @param {string} tagStr
  * @returns end tag wrapper object
  */
-const createEndTag = (tagStr) =>
-  tagWrapperObj(tagStr, new RegExp("^(.*)" + escapeRegExp(tagStr) + "\\s*$"));
+export const createEndTag = (tagStr: string) =>
+  tagWrapperObj(tagStr, new RegExp('^(.*)' + escapeRegExp(tagStr) + '\\s*$'));
 
 /**
  * Creates a section tag from string
@@ -66,23 +72,16 @@ const createEndTag = (tagStr) =>
  * @param {string} rightPartStr right part of a section
  * @returns section tag wrapper object
  */
-const createSectionTag = (leftPartStr, rightPartStr) =>
+export const createSectionTag = (leftPartStr: string, rightPartStr: string) =>
   tagWrapperObj(
     leftPartStr + rightPartStr,
     new RegExp(
-      "^\\s*" +
+      '^\\s*' +
         escapeRegExp(leftPartStr) +
-        "(.*)" +
+        '(.*)' +
         escapeRegExp(rightPartStr) +
-        "\\s*$"
+        '\\s*$'
     )
   );
 
-const matchAllTag = tagWrapperObj("something", /^(.*)$/);
-
-module.exports = {
-  createStartTag,
-  createEndTag,
-  createSectionTag,
-  matchAllTag,
-};
+export const matchAllTag = tagWrapperObj('something', /^(.*)$/);
