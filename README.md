@@ -10,19 +10,19 @@ RegExp wrapper for comment-like lines
 ## Examples
 
 ```js
-const crb = require("comment-regexp-builder");
+const crb = require('comment-regexp-builder');
 
-const lineCommentTag = crb.createStartTag("//");
-console.log(lineCommentTag.test("  // some comment "));
+const lineCommentTag = crb.createStartTag('//');
+console.log(lineCommentTag.test('  // some comment '));
 //=>true
-console.log(lineCommentTag.innerText("  // some comment "));
+console.log(lineCommentTag.innerText('  // some comment '));
 //=>" some comment "
 ```
 
 more line comment example
 
 ```js
-const crb = require("comment-regexp-builder");
+const crb = require('comment-regexp-builder');
 
 const src = `
  //  my 2nd code
@@ -38,8 +38,8 @@ const src = `
 }
 `;
 
-const lineCommentTag = crb.createStartTag("//");
-const lineComments = src.split("\n").filter(lineCommentTag.test);
+const lineCommentTag = crb.createStartTag('//');
+const lineComments = src.split('\n').filter(lineCommentTag.test);
 
 console.log(lineComments);
 //=> [
@@ -61,7 +61,7 @@ console.log(lineComments.map(lineCommentTag.innerText));
 ini file example
 
 ```js
-const crb = require("comment-regexp-builder");
+const crb = require('comment-regexp-builder');
 
 const configText = `
 ; ini file
@@ -85,9 +85,9 @@ name=John
 
 `;
 
-const sectionTag = crb.createSectionTag("[", "]");
+const sectionTag = crb.createSectionTag('[', ']');
 const sectionNames = configText
-  .split("\n")
+  .split('\n')
   .filter(sectionTag.test)
   .map(sectionTag.innerText);
 
@@ -123,27 +123,27 @@ To recognize lines with tags, these criteria must be met:
 - Section Tag pair can be surrounded only by white chars
 
 ```js
-const crb = require("comment-regexp-builder");
+const crb = require('comment-regexp-builder');
 
-const startBlock = crb.createStartTag("/*");
-const endBlock = crb.createEndTag("*/");
+const startBlock = crb.createStartTag('/*');
+const endBlock = crb.createEndTag('*/');
 
-console.log(startBlock.test(" x /* some comment */  "));
+console.log(startBlock.test(' x /* some comment */  '));
 //=>false
-console.log(startBlock.innerText(" x /* some comment */  "));
+console.log(startBlock.innerText(' x /* some comment */  '));
 //=>null
-console.log(endBlock.test(" x /* some comment */  "));
+console.log(endBlock.test(' x /* some comment */  '));
 //=>true
-console.log(endBlock.innerText(" x /* some comment */  "));
+console.log(endBlock.innerText(' x /* some comment */  '));
 //=>" x /* some comment "
 
-console.log(startBlock.test("  /* some comment */ x "));
+console.log(startBlock.test('  /* some comment */ x '));
 //=>true
-console.log(startBlock.innerText("  /* some comment */ x "));
+console.log(startBlock.innerText('  /* some comment */ x '));
 //=>" some comment */ x "
-console.log(endBlock.test("  /* some comment */ x "));
+console.log(endBlock.test('  /* some comment */ x '));
 //=>false
-console.log(endBlock.innerText("  /* some comment */ x "));
+console.log(endBlock.innerText('  /* some comment */ x '));
 //=>null
 ```
 
