@@ -119,7 +119,7 @@ There is also useful constant tag object: `matchAllTag`, which meets the followi
 To recognize lines with tags, these criteria must be met:
 
 - Start-Tag must be the first non-white character at the line
-- End-Tag must be the first non-white character at the line
+- End-Tag must be the last non-white character at the line
 - Section Tag pair can be surrounded only by white chars
 
 ```js
