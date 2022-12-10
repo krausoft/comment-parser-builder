@@ -1,5 +1,8 @@
 # comment-regexp-builder
 
+![build](https://github.com/krausoft/comment-regexp-builder/actions/workflows/node.js.yml/badge.svg)
+[![Code Style: Google](https://img.shields.io/badge/code%20style-google-blueviolet.svg)](https://github.com/google/gts)
+
 RegExp wrapper for comment-like lines
 
 - custom tags, from strings ('/\*', '\*/', '//', ...)
